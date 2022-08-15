@@ -1,0 +1,920 @@
+<html>
+
+<head>
+	<title>二次元手游生成器</title>
+	<meta http-equiv="content-type" content="txt/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+</head>
+
+<body>
+	<div id="主体">
+		<div id="标题">二次元手游生成器</div>
+		<div id="主题">
+			<span>游戏类型:</span>
+			<input id="subject"></input>
+			<br>
+			<span>制作组:</span>
+			<input id="predicate"></input>
+			<br>
+			<span>游戏名:</span>
+			<input id="fact"></input>
+			<br>
+			<div id="说明">
+				<span>填“无”则为随机</span>
+			</div>
+			<br>
+			<button onclick="生成文章()">生成</button>
+		</div>
+		<div id="文章"></div>
+	</div>
+	<div id="页脚">
+		<p>营销号版 <a class="链接" href="https://github.com/TravinDreek/YingXiaoHaoGenerator"><svg class="图标" viewBox="0 0 16 16"
+					version="1.1" aria-hidden="true">
+					<path fill-rule="evenodd"
+						d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+					</path>
+					</path>
+				</svg>Peaksol</a></p>
+		<p>原版 <a class="链接" href="https://github.com/menzi11/BullshitGenerator"><svg class="图标" viewBox="0 0 16 16"
+					version="1.1" aria-hidden="true">
+					<path fill-rule="evenodd"
+						d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+					</path>
+				</svg>menzi11</a></p>
+	</div>
+</body>
+
+</html>
+
+<script>
+	window.$ = function (selector) {
+		return document.querySelector(selector);
+	}
+
+	function 获取网址参数(参数) {
+		return new URL(window.location.href).searchParams.get(参数)
+	}
+
+	let 起手式 = [
+		'随机游戏的故事发生在关键地点，在这里，你将',
+		'时间来到关键时间，关键地点。你将',
+		'随机游戏将以关键地点为舞台，在这里，你将',
+	]
+
+	let 地点 = [
+		'关键英文城',
+		'关键英文大陆',
+		'对你而言是崭新的大陆',
+		'既熟悉又陌生的城市',
+		'充盈魔法的异界',
+		'关键英文城',
+		'浩渺奇异的宇宙',
+		'剑与魔法的世界',
+		'各势力交界之地',
+		'魔法与机械并存的世界',
+		'成为一片废墟的地球',
+		'废土之上',
+		'遗弃之地',
+		'新关键英文',
+		'关键英文都市',
+		'第三关键英文',
+		'关键英文大陆',
+		'关键英文',
+
+	]
+
+	let 时间 = [
+		'黄金时代',
+		'AB世纪中叶',
+		'AB世纪',
+		'关键英文历ABCD年',
+		'关键英文历ABCD年',
+		'关键英文历ABC年',
+		'关键英文B历ABCD年',
+		'关键英文B历ABCD年',
+		'关键英文B历ABC年',
+		'失落时代',
+		'ABCD年',
+		'ABCD年',
+		'关键英文王朝',
+
+	]
+
+	let 道具 = [
+		''
+
+
+
+	]
+	let 角色 = [
+		'干员',
+		'部员',
+		'斗士',
+		'调查员',
+		'游戏角色',
+		'游戏角色',
+		'游戏角色',
+		'人物',
+		'逼格词A者',
+		'逼格词A众',
+		'逼格词B者',
+		'逼格词A逼格词B者',
+		'特工',
+		'「关键英文B」',
+		'「关键英文B」',
+	]
+
+	let 内容填充 = [
+		'邂逅各种各样的关键角色，',
+		'邂逅能力各异的关键角色，',
+		'结识能力各异的关键角色，',
+		'结识性格各异的关键角色，',
+		'与能力各异的关键角色相遇，',
+		'与各种各样，性格能力各异的关键角色相遇，',
+		'体验关键地点的风土人情，',
+		'游遍关键地点的每处，',
+		'探索关键地点的各个角落，',
+		'击败强敌，',
+		'消灭阴谋，',
+		'不断成长，',
+		'揭开关键地点的秘密，',
+		'唤醒过去的记忆，',
+		'亲历关键时间的大事件，',
+		'在众多势力间周旋，',
+		'挫败酝酿已久的阴谋，',
+		'击溃阴影中的敌人，',
+		'探索从未有人踏足的地域，',
+		'消灭密谋者，',
+		'与关键角色们并肩作战，',
+		'指挥你的小队，',
+		'培养与关键角色们的羁绊，',
+		'以自己的方式解决难题，',
+		'穿梭于关键地点中，',
+		'应对未知的风险，',
+		'研究关键道具，',
+		'展开对关键道具的研究，',
+		'与关键角色们携手抵御危机，',
+		'与天灾展开斗争，',
+	]
+
+	let 结束式 = [
+		'最终揭开关键事件的真相。',
+		'最终挫败纵贯整个关键时间的巨大阴谋。',
+		'最终揭开关键地点的真相。',
+		'最终夺回岌岌可危的未来。',
+		'最终在黑暗中寻得一线希望。',
+		'最终逐步接近世界的真相。',
+		'',
+		'',
+
+
+	]
+	let 游戏 = [
+		'逼格词A逼格词B名字',
+		'逼格词A逼格词B名字',
+		'逼格词A逼格词B名字',
+		'逼格词A逼格词B名字',
+		'逼格词A逼格词B名字',
+		'逼格词A逼格词B名字',
+		'逼格词A逼格词B名字',
+		'逼格词A逼格词B名字',
+		'逼格词A逼格词B名字',
+		'逼格词A逼格词B名字',
+		'逼格词A逼格词B名字',
+		'逼格词A逼格词B名字',
+		'逼格词A逼格词B名字',
+		'逼格词A逼格词B名字',
+		'逼格词A逼格词B名字',
+		'逼格词A逼格词B名字',
+		'逼格词A逼格词B名字',
+		'逼格词A逼格词B名字',
+		'逼格词A逼格词B名字',
+		'逼格词A逼格词B名字',
+		'逼格词A逼格词B名字',
+		'逼格词A逼格词B名字',
+		'逼格词A逼格词B名字',
+		'逼格词A逼格词B名字',
+		'逼格词A逼格词B名字',
+		'逼格词A逼格词B',
+		'逼格词A逼格词B',
+		'逼格词A逼格词B',
+		'逼格词A之名字',
+		'名字之逼格词B',
+		'名字逼格词A逼格词B',
+		'名字逼格词A逼格词B',
+		'英文A英文B：逼格词A名字',
+		'英文A英文B英文C名字',
+		'英文A英文B英文C名字',
+		'英文A英文B英文C',
+		'英文A英文B英文C',
+		'英文A英文B英文C英文X',
+		'逼格词A逼格词B',
+		'逼格词A逼格词B',
+		'逼格词A逼格词B',
+		'逼格词A之名字',
+		'名字之逼格词B',
+		'名字逼格词A逼格词B',
+		'名字逼格词A逼格词B',
+		'英文A英文B：逼格词A名字',
+		'英文A英文B英文C名字',
+		'英文A英文B英文C名字',
+		'英文A英文B英文C',
+		'英文A英文B英文C',
+		'英文A英文B英文C英文X',
+		'英文A英文B英文C：逼格词A',
+		'名字英文A英文B英文C',
+		'名字英文A英文B英文C英文X',
+		'名字：英文A英文B英文C英文X',
+		'英文A英文B英文C英文X名字',
+		'英文A英文B英文C英文X：名字',
+		'代号：名字',
+		'代号：逼格词A',
+		'代号：逼格词B',
+		'代号：逼格词A逼格词B',
+		'代号：英文A英文B英文C',
+	]
+
+	let 名字 = [
+		'湮灭',
+		'效应',
+		'琥珀',
+		'领域',
+		'创想',
+		'回响',
+		'指令',
+		'传说',
+		'潮汐',
+		'伊甸',
+		'命运',
+		'摆动',
+		'契约',
+		'起源',
+		'核心',
+		'境界',
+		'诗篇',
+		'誓言',
+		'蚀刻',
+		'映射',
+		'回归',
+		'地平线',
+		'纷争',
+		'方舟',
+		'刻痕',
+		'守望',
+		'公式',
+		'序列',
+		'计划',
+		'归航',
+		'物语',
+		'航线',
+		'律动',
+		'重构',
+		'深渊',
+		'少女',
+		'战姬',
+		'螺旋',
+
+	]
+
+	let 逼格词A = [
+		'雾',
+		'空',
+		'流',
+		'耀',
+		'星',
+		'火',
+		'空',
+		'尘',
+		'月',
+		'迷',
+		'逆',
+		'零',
+		'隐',
+		'微',
+		'晶',
+		'幻',
+		'绯',
+		'苍',
+		'夜',
+		'痕',
+		'黑',
+		'心',
+		'萃',
+		'明',
+		'原',
+		'残',
+		'伪',
+		'鸣'
+
+	]
+	let 逼格词B = [
+		'雾',
+		'空',
+		'流',
+		'耀',
+		'星',
+		'火',
+		'空',
+		'尘',
+		'月',
+		'秘',
+		'塔',
+		'零',
+		'隐',
+		'渊',
+		'境',
+		'镜',
+		'幻',
+		'源',
+		'界',
+		'痕',
+		'石',
+		'心',
+		'翼',
+		'日',
+		'城',
+		'谜',
+		'核',
+		'环',
+		'神',
+		'烬',
+		'线',
+		'明',
+		'潮',
+
+	]
+	let 游戏简介 = [
+		'自主研发的游戏类型前A游戏类型前B游戏类型后A游戏',
+		'二次元游戏类型前A游戏类型前B游戏类型后A手游',
+		'二次元游戏类型前A游戏类型后A手游',
+		'二次元游戏类型前A游戏类型前B游戏类型后A游戏类型后B手游',
+		'二次元游戏类型前A游戏类型前B游戏类型后A手游',
+		'二次元游戏类型前A游戏类型前B游戏类型后A手游',
+		'二次元游戏类型前A游戏类型前B游戏类型后A游戏类型后B手游',
+		'二次元游戏类型前A游戏类型前B游戏类型后A游戏类型后B手游',
+		'二次元游戏类型前A游戏类型前B游戏类型后A手游',
+		'二次元游戏类型前A游戏类型前B游戏类型后A手游',
+		'二次元游戏类型前A游戏类型前B游戏类型后A游戏类型后B手游',
+		'二次元游戏类型前A游戏类型前B游戏类型后A手游',
+		'二次元游戏类型前A游戏类型前B游戏类型后A手游',
+		'二次元游戏类型前A游戏类型前B游戏类型后A手游',
+		'二次元游戏类型前A游戏类型前B游戏类型后A手游',
+		'次时代游戏类型前A游戏类型前B游戏类型后A手游',
+		'游戏类型前A游戏类型前B游戏类型后A手游',
+		'全平台游戏类型前A游戏类型前B游戏类型后A游戏',
+		'游戏类型前A游戏类型后A手游',
+		'游戏类型前A游戏类型后A游戏类型后B手游',
+		'游戏类型前A游戏类型后A游戏类型后B手游',
+
+	]
+	let 游戏类型前A = [
+		'和风',
+		'奇幻',
+		'冒险',
+		'暗黑风',
+		'萌系',
+		'复古',
+		'神秘学',
+		'怪谈',
+		'异世界',
+		'策略',
+		'全新',
+		'近未来',
+		'战术',
+		'国风',
+		'像素',
+		'高画质',
+		'科幻',
+		'都市',
+		'本格',
+		'反乌托邦',
+		'超自然',
+		'超现实',
+		'3D',
+		'机甲',
+		'魔物娘',
+		'赛博',
+		'后启示录',
+		'潮玩风',
+		'未来',
+		'古风',
+		'都市',
+		'魔幻',
+		'韩式画风',
+		'日式',
+		'META风',
+		'快节奏',
+		'',
+
+	]
+	let 英文名 = [
+		'丝',
+		'帕',
+		'卡',
+		'蒂',
+		'格',
+		'赫',
+		'提',
+		'亚',
+		'尔',
+		'特',
+		'维',
+		'塔',
+		'莉',
+		'玛',
+		'娜',
+		'什',
+		'米',
+		'娅',
+		'西',
+		'希',
+		'薇',
+		'伊',
+		'艾',
+		'洛',
+		'达',
+		'萨',
+		'泰',
+		'拉',
+		'泰',
+		'拉',
+		'露',
+		'德',
+		'提',
+		'瓦',
+
+
+	]
+	let 游戏类型前B = [
+		'和风',
+		'奇幻',
+		'冒险',
+		'暗黑',
+		'萌系',
+		'复古',
+		'神秘学',
+		'怪谈',
+		'异世界',
+		'策略',
+		'全新',
+		'近未来',
+		'战术',
+		'国风',
+		'像素',
+		'高画质',
+		'科幻',
+		'都市',
+		'本格',
+		'反乌托邦',
+		'超自然',
+		'超现实',
+		'3D',
+		'机甲',
+		'魔物娘',
+		'赛博',
+		'后启示录',
+		'超爽快',
+		'META风',
+		'rougelite',
+		'',
+
+
+	];
+	let 游戏类型后 = [
+		'卡牌',
+		'开放世界',
+		'塔防',
+		'战棋',
+		'射击',
+		'回合制',
+		'即时策略',
+		'RTS',
+		'TPS',
+		'战棋',
+		'回合制',
+		'集换式卡牌',
+		'养成',
+		'格斗',
+		'横版',
+		'即时战略',
+		'推理',
+		'放置',
+		'换装',
+		'解谜',
+		'挂机',
+		'自走棋',
+		'冒险',
+		'角色扮演',
+		'角色扮演',
+		'角色扮演',
+		'角色扮演',
+		'冒险',
+		'RPG',
+		'RPG',
+		'RPG',
+		'MMO',
+		'MMO',
+		'休闲',
+		'开放世界',
+		'开放世界',
+		'动作',
+
+	];
+	let 可用游戏 = [];
+	let 可用起手式 = [];
+	let 可用内容填充 = [];
+	let 下取整 = Math.floor;
+
+	let 游戏类型 = 获取网址参数('游戏类型') || '开放世界';
+	let 制作组 = 获取网址参数('制作组') || '无';
+	let 游戏名 = 获取网址参数('游戏名') || '无';
+	let 主题 = '';
+
+	$('#subject').value = 游戏类型;
+	$('#predicate').value = 制作组;
+	$('#fact').value = 游戏名;
+
+	function 来点内容填充() {
+		let 内容 = 可用内容填充.pop();
+		内容 = 内容.replace(RegExp('主题', 'g'), 主题);
+		内容 = 内容.replace(RegExp('游戏类型', 'g'), 游戏类型);
+		内容 = 内容.replace(RegExp('制作组', 'g'), 制作组);
+		内容 = 内容.replace(RegExp('关键地点', 'g'), 关键地点);
+		内容 = 内容.replace(RegExp('关键角色', 'g'), 关键角色);
+		内容 = 内容.replace(RegExp('关键时间', 'g'), 关键时间);
+		return 内容
+	}
+
+
+	function 来个起手式() {
+		let 关键起手式 = 可用起手式.pop();
+		关键起手式 = 关键起手式.replace(RegExp('主题', 'g'), 主题);
+		关键起手式 = 关键起手式.replace(RegExp('游戏类型', 'g'), 游戏类型);
+		关键起手式 = 关键起手式.replace(RegExp('制作组', 'g'), 制作组);
+		关键起手式 = 关键起手式.replace(RegExp('制作组', 'g'), 制作组);
+		//关键起手式 = 关键起手式.replace(RegExp('随机游戏', 'g'), 随机游戏);
+		return 关键起手式;
+	}
+
+	function 来个标题(主题) {
+		标题.sort(function () { return (0.5 - Math.random()); });;
+		let 随机标题 = 标题[0];
+		随机标题 = 随机标题.replace(RegExp('主题', 'g'), 主题);
+		return '<h2 align="center">' + 随机标题 + '</h2>'
+	}
+
+	function 来个游戏名(游戏) {
+		var 随机游戏 = 游戏[Math.floor(Math.random() * 游戏.length)];
+		var 随机逼格词A = 逼格词A[Math.floor(Math.random() * 逼格词A.length)];
+		var 随机逼格词B = 逼格词B[Math.floor(Math.random() * 逼格词B.length)];
+		var 随机名字 = 名字[Math.floor(Math.random() * 名字.length)];
+		随机游戏 = 随机游戏.replace(RegExp('逼格词A', 'g'), 随机逼格词A);
+		随机游戏 = 随机游戏.replace(RegExp('逼格词B', 'g'), 随机逼格词B);
+		随机游戏 = 随机游戏.replace(RegExp('名字', 'g'), 随机名字);
+		return '<h2 align="center">' + 随机游戏 + '</h2>'
+	}
+
+	function 生成文章() {
+		游戏类型 = $('#subject').value;
+		制作组 = $('#predicate').value;
+		游戏名 = $('#fact').value;
+		if (!(游戏类型 && 制作组 && 游戏名)) return;
+		主题 = 游戏类型 + 制作组;
+
+		//游戏名生成
+		var 随机游戏 = 游戏[Math.floor(Math.random() * 游戏.length)];
+		var 随机逼格词A = 逼格词A[Math.floor(Math.random() * 逼格词A.length)];
+		var 随机逼格词B = 逼格词B[Math.floor(Math.random() * 逼格词B.length)];
+		while (随机逼格词A == 随机逼格词B) {
+			var 随机逼格词B = 逼格词B[Math.floor(Math.random() * 逼格词B.length)]
+		};
+		随机英文A = 英文名[Math.floor(Math.random() * 英文名.length)];
+		随机英文B = 英文名[Math.floor(Math.random() * 英文名.length)];
+		随机英文C = 英文名[Math.floor(Math.random() * 英文名.length)];
+		随机英文X = 英文名[Math.floor(Math.random() * 英文名.length)];
+		while (随机英文A == 随机英文B || 随机英文B == 随机英文C || 随机英文A == 随机英文C) {
+			随机英文A = 英文名[Math.floor(Math.random() * 英文名.length)];
+			随机英文B = 英文名[Math.floor(Math.random() * 英文名.length)];
+			随机英文C = 英文名[Math.floor(Math.random() * 英文名.length)]
+		}
+		随机英文D = 英文名[Math.floor(Math.random() * 英文名.length)];
+		随机英文E = 英文名[Math.floor(Math.random() * 英文名.length)];
+		随机英文F = 英文名[Math.floor(Math.random() * 英文名.length)];
+		随机英文Y = 英文名[Math.floor(Math.random() * 英文名.length)];
+		while (随机英文D == 随机英文E || 随机英文E == 随机英文F || 随机英文D == 随机英文F) {
+			随机英文D = 英文名[Math.floor(Math.random() * 英文名.length)];
+			随机英文E = 英文名[Math.floor(Math.random() * 英文名.length)];
+			随机英文F = 英文名[Math.floor(Math.random() * 英文名.length)]
+		}
+		var 随机名字 = 名字[Math.floor(Math.random() * 名字.length)];
+		随机游戏 = 随机游戏.replace(RegExp('逼格词A', 'g'), 随机逼格词A);
+		随机游戏 = 随机游戏.replace(RegExp('逼格词B', 'g'), 随机逼格词B);
+		随机游戏 = 随机游戏.replace(RegExp('名字', 'g'), 随机名字);
+		随机游戏 = 随机游戏.replace(RegExp('英文A', 'g'), 随机英文A);
+		随机游戏 = 随机游戏.replace(RegExp('英文B', 'g'), 随机英文B);
+		随机游戏 = 随机游戏.replace(RegExp('英文C', 'g'), 随机英文C);
+		随机游戏 = 随机游戏.replace(RegExp('英文X', 'g'), 随机英文X);
+
+		//游戏简介生成
+
+		var 随机游戏简介 = 游戏简介[Math.floor(Math.random() * 游戏简介.length)];
+		var 随机游戏类型前A = 游戏类型前A[Math.floor(Math.random() * 游戏类型前A.length)];
+		var 随机游戏类型前B = 游戏类型前B[Math.floor(Math.random() * 游戏类型前B.length)];
+		var 随机游戏类型后A = 游戏类型后[Math.floor(Math.random() * 游戏类型后.length)];
+		var 随机游戏类型后B = 游戏类型后[Math.floor(Math.random() * 游戏类型后.length)];
+		while (随机游戏类型前A == 随机游戏类型前B) {
+			var 随机游戏类型前B = 游戏类型前B[Math.floor(Math.random() * 游戏类型前B.length)]
+		}
+		while (随机游戏类型后A == 随机游戏类型后B) {
+			var 随机游戏类型后B = 游戏类型后[Math.floor(Math.random() * 游戏类型后.length)]
+		}
+		随机游戏简介 = 随机游戏简介.replace(RegExp('游戏类型前A', 'g'), 随机游戏类型前A);
+		随机游戏简介 = 随机游戏简介.replace(RegExp('游戏类型前B', 'g'), 随机游戏类型前B);
+		随机游戏简介 = 随机游戏简介.replace(RegExp('游戏类型后A', 'g'), 随机游戏类型后A);
+		随机游戏简介 = 随机游戏简介.replace(RegExp('游戏类型后B', 'g'), 随机游戏类型后B);
+
+		if (!(游戏类型 == '无')) [
+			随机游戏简介 = 游戏类型.concat('游戏')
+		]
+
+		if (!(游戏名 == '无')) [
+			随机游戏 = 游戏名
+		]
+
+		// 游戏关键词
+		var 随机数B = Math.random()
+		if (随机数B > 0.3) [
+			关键英文 = 随机英文A.concat(随机英文B, 随机英文C)
+		]
+		else[
+			关键英文 = 随机英文A.concat(随机英文B, 随机英文C, 随机英文X)
+		]
+		var 随机数C = Math.random()
+		if (随机数C > 0.3) [
+			关键英文B = 随机英文D.concat(随机英文E, 随机英文F)
+		]
+		else[
+			关键英文B = 随机英文D.concat(随机英文E, 随机英文F, 随机英文Y)
+		]
+
+		关键地点 = 地点[Math.floor(Math.random() * 地点.length)];
+		关键地点 = 关键地点.replace(RegExp('关键英文', 'g'), 关键英文);
+		关键角色 = 角色[Math.floor(Math.random() * 角色.length)];
+		关键角色 = 关键角色.replace(RegExp('逼格词A', 'g'), 随机逼格词A);
+		关键角色 = 关键角色.replace(RegExp('逼格词B', 'g'), 随机逼格词B);
+		关键角色 = 关键角色.replace(RegExp('关键英文B', 'g'), 关键英文B);
+		关键时间 = 时间[Math.floor(Math.random() * 时间.length)];
+		关键时间 = 关键时间.replace(RegExp('关键英文B', 'g'), 关键英文B);
+		关键时间 = 关键时间.replace(RegExp('关键英文', 'g'), 关键英文);
+		关键时间 = 关键时间.replace(RegExp('A', 'g'), Math.floor(Math.random() * 10));
+		关键时间 = 关键时间.replace(RegExp('B', 'g'), Math.floor(Math.random() * 10));
+		关键时间 = 关键时间.replace(RegExp('C', 'g'), Math.floor(Math.random() * 10));
+		关键时间 = 关键时间.replace(RegExp('D', 'g'), Math.floor(Math.random() * 10));
+		history.pushState({ url: window.location.href }, null, '?游戏类型=' + 游戏类型 + '&制作组=' + 制作组 + '&游戏名=' + 游戏名);
+		let 文章 = [];
+		可用内容填充 = 内容填充.concat().sort(function () { return (0.5 - Math.random()); });
+
+
+		//起手式生成
+
+		关键起手式 = 起手式[Math.floor(Math.random() * 起手式.length)];
+		关键起手式 = 关键起手式.replace(RegExp('主题', 'g'), 主题);
+		关键起手式 = 关键起手式.replace(RegExp('游戏类型', 'g'), 游戏类型);
+		关键起手式 = 关键起手式.replace(RegExp('制作组', 'g'), 制作组);
+		关键起手式 = 关键起手式.replace(RegExp('随机游戏', 'g'), 随机游戏);
+		关键起手式 = 关键起手式.replace(RegExp('关键地点', 'g'), 关键地点);
+		关键起手式 = 关键起手式.replace(RegExp('关键时间', 'g'), 关键时间);
+
+
+		//结束式生成
+
+		关键结束式 = 结束式[Math.floor(Math.random() * 结束式.length)];
+		关键结束式 = 关键结束式.replace(RegExp('主题', 'g'), 主题);
+		关键结束式 = 关键结束式.replace(RegExp('游戏类型', 'g'), 游戏类型);
+		关键结束式 = 关键结束式.replace(RegExp('制作组', 'g'), 制作组);
+		关键结束式 = 关键结束式.replace(RegExp('随机游戏', 'g'), 随机游戏);
+		关键结束式 = 关键结束式.replace(RegExp('关键地点', 'g'), 关键地点);
+		关键结束式 = 关键结束式.replace(RegExp('关键时间', 'g'), 关键时间);
+
+
+
+		//文章.push(来个标题(主题));
+		文章.push('<h2 align="center">' + 随机游戏 + '</h2>');
+		文章.push('　　' + 随机游戏 + '是一款' + 随机游戏简介 + '。');
+		let 中心段 = '';
+		中心段 += 关键起手式;
+		let i = 1;
+		while (i < 10) {
+			if (可用内容填充.length == 0) break;
+			let 随机数 = Math.random()
+			if (随机数 < 0.8) {
+				中心段 += 来点内容填充();
+			};
+			i += 1;
+		}
+		中心段 += 关键结束式;
+		if (中心段[中心段.length - 1] != '。'
+			|| 中心段[中心段.length - 1] != '？'
+			|| 中心段[中心段.length - 1] != '！') {
+			中心段 = 中心段.slice(0, -1) + '。'
+		}
+		文章.push('　　' + 中心段);
+
+		//文章.push('　　总而言之，' + 主题 + '其实就是' + 游戏名 + '， 大家可能会很惊讶' + 游戏类型 + '怎么会' + 制作组 + '呢？但事实就是这样，小编也感到非常惊讶。这就是关于' + 主题 + '的事情了，大家有什么想法呢，欢迎在评论区告诉小编一起讨论哦！');
+
+		let 排版 = '<div>' + 文章.join('</div><div>') + '</div>';
+		$('#文章').innerHTML = 排版;
+	}
+
+	if (获取网址参数('游戏类型') && 获取网址参数('制作组') && 获取网址参数('游戏名')) {
+		生成文章();
+	}
+
+</script>
+
+<style>
+	@media screen and (max-width: 1024px) {
+		html {
+			font-size: 2vw;
+			color: #333333;
+		}
+
+		body {
+			margin: 0;
+		}
+
+		#主体 {
+			border: 2px solid #333333;
+			margin: 6px;
+			padding: 6px;
+			background: #f8f8f8;
+		}
+
+		#标题 {
+			font-size: 3rem;
+			line-height: 3rem;
+			text-align: center;
+		}
+
+		#主题 {
+			text-align: center;
+			margin-top: 6px;
+			font-size: 0px;
+		}
+
+		#主题 span {
+			font-size: 2rem;
+			vertical-align: baseline;
+			margin-left: 6px;
+		}
+
+		#主题 input {
+			border: none;
+			border-bottom: #666666 2px solid;
+			padding: 1px 0 0 0;
+			margin: 0px 6px 0 6px;
+			vertical-align: baseline;
+			font-size: 2rem;
+			background: #f8f8f8;
+			color: #333333;
+			text-align: center;
+			min-width: 20%;
+		}
+
+		#主题 button {
+			border: 3px;
+			padding: 3px 10px 3px 10px;
+			margin: 0;
+			vertical-align: top;
+			font-size: 1.4rem;
+			background: #454545;
+			color: #efefef;
+		}
+
+		#文章 div {
+			margin-top: 6px;
+			font-size: 2rem;
+			text-align: justify;
+		}
+
+		#页脚 {
+			margin: 6px;
+		}
+
+		#页脚 p {
+			margin: 3px;
+			font-size: 1.4rem;
+			text-align: right;
+		}
+
+		.链接 {
+			color: #666666;
+		}
+
+		.图标 {
+			height: 1rem;
+			width: 1rem;
+			vertical-align: top;
+			margin-top: 2px;
+		}
+	}
+
+	@media screen and (min-width: 1024px) {
+		html {
+			font-size: 1.3vw;
+			color: #333333;
+		}
+
+		body {
+			margin: 0;
+		}
+
+		#主体 {
+			border: 2px solid #333333;
+			margin: 20px;
+			padding: 20px;
+			background: #f8f8f8;
+		}
+
+		#标题 {
+			font-size: 1.9rem;
+			line-height: 1.9rem;
+			text-align: center;
+		}
+
+		#主题 {
+			text-align: center;
+			margin-top: 20px;
+			font-size: 0px;
+		}
+
+		#主题 span {
+			font-size: 1rem;
+			vertical-align: baseline;
+			margin-left: 20px;
+		}
+
+		#主题 input {
+			border: none;
+			border-bottom: #666666 2px solid;
+			padding: 1px 0 0 0;
+			margin: 0px 20px 0 20px;
+			vertical-align: baseline;
+			font-size: 1rem;
+			background: #f8f8f8;
+			color: #333333;
+			text-align: center;
+			min-width: 20%;
+		}
+
+
+
+		#主题 button {
+			border: 0;
+			padding: 5px 40px 5px 40px;
+			margin-top: 20px;
+			vertical-align: baseline;
+			font-size: 0.8rem;
+			background: #454545;
+			color: #efefef;
+		}
+
+
+		#说明 {
+			color: #454545;
+			font-style: italic;
+		}
+
+		#文章 div {
+			margin-top: 20px;
+			text-align: justify;
+		}
+
+		#页脚 {
+			margin: 20px;
+		}
+
+		#页脚 p {
+			margin: 5px;
+			font-size: 0.75rem;
+			text-align: right;
+		}
+
+		.链接 {
+			color: #666666;
+		}
+
+		#页脚 span {
+			padding: 2px 0 0 0;
+			vertical-align: baseline;
+		}
+
+		.图标 {
+			height: 0.7rem;
+			width: 0.7rem;
+			vertical-align: top;
+			margin-top: 4px;
+		}
+	}
+
+</style>
